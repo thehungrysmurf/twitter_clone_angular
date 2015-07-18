@@ -11,5 +11,5 @@ end
 
 post '/users' do
   user = JSON.parse(request.body.read)
-  User.create(first_name: user['first_name'], last_name: user['last_name'])
+  User.create(first_name: user['first_name'], last_name: user['last_name'], username: user['username'], password: user['password'])
 end

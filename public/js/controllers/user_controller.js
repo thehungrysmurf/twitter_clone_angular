@@ -10,7 +10,9 @@ shiftSampleApp
     $scope.createUser = function(user) {
       var params = {
         first_name: user.firstName,
-        last_name: user.lastName
+        last_name: user.lastName,
+        username: user.username,
+        password: user.password
       };
 
       $http.post('/users', params).success(function(response) {
