@@ -6,11 +6,19 @@
         Last name: <input type="text" ng-model="user.lastName" /><br />
         Username: <input type="text" ng-model="user.username" /><br />
         Password: <input type="password" ng-model="user.password" /><br />
-
         <input type="submit" ng-click="createUser(user)" value="Save" />
     </form>
-    <br>
-    <br>
+  </div>
+
+  <br>
+  <br>
+  <div>
+    <label>Existing User Login</label>
+    <form ng-controller="LoginCtrl" ng-submit="login(credentials)" novalidate>
+        Username: <input type="text" ng-model="credentials.username" /><br />
+        Password: <input type="password" ng-model="credentials.password" /><br />
+        <button type="submit" class="btn">Log in</button>
+    </form>
 
     <span>{{ user.firstName }}</span>
 
