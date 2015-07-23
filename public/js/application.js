@@ -7,9 +7,16 @@ shiftSampleApp.config(['$routeProvider',
         templateUrl: '/js/templates/users.html',
         controller: 'UsersCtrl',
       }).
-      //add new angular routes below
+      when('/profile', {
+        templateUrl: '/js/templates/login.html',
+        controller: 'LoginCtrl',
+      }).
+      when('/error', {
+        templateUrl: 'js/templates/error.html',
+        controller: 'LoginCtrl',
+      }).
+      // add new angular routes below
       otherwise({
-        redirectTo: '/users'
+       redirectTo: '/users'
       });
   }]);
-

@@ -22,11 +22,9 @@ class User < ActiveRecord::Base
   def self.login(username, pass)
     @user = User.find_by_username(username)
     if @user.password == pass
-      # give_token
-      return 0
+      token = @user.username
     else
-      return 1
-      # redirect_to home_url
+      token = nil
     end
   end
 end
