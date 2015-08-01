@@ -16,27 +16,25 @@ post '/users' do
 end
 
 get '/profile' do
-  if session[:username].nil?
-    redirect '/error'
+  if session['user'].nil?
+    status = 404
   else
-    # call app.js to take me to profile.html
-    puts "User is logged in, session created"     
+    status = 200
+    current_user = User.find_by_username(session['user'])
+  content_type :json
+  { :status => status, :current_user => current_user }.to_json
   end
-end
-
-get '/error' do
-  # call app.js to take me to error.html
-  puts "Error! Not logged in"
 end
 
 post '/login' do
     credentials = JSON.parse(request.body.read)
     is_logged_in = User.login(credentials['username'], credentials['password'])
     if is_logged_in != nil
-      puts "Login OK"
-      session[:username] = is_logged_in
+      status = 200
+      session['user'] = is_logged_in
     else
-      puts "Login failed!"
-      session[:username] = nil
+      status = 400
+      session['user'] = nil
     end
+    { :status => status }.to_json
 end
