@@ -1,7 +1,26 @@
 <h1> Shift starter app </h1>
+  
   <div ng-controller="ProfileCtrl">
     <p>Hello and welcome to being logged in!</p>
     <button ng-click="getProfile()">See your stuff</button>
-      <p> {{ current_user.first_name }} </p>
+    <p> {{ current_user.first_name }} </p>
+      
+      <div ng-controller="TweetCtrl">
+        <h1>Write a tweet</h1>
+        <form novalidate>
+          Text: <input type="text" ng-model="tweet.text" /><br />
+        <input type="submit" ng-click="createTweet(tweet)" value="Save" />
+        </form>
+       
+        <br />
+
+        <h1>Your tweets</h1>
+        <button ng-click="getTweets()">See your tweets</button>
+        <li ng-repeat="tweet in tweets">
+            {{ tweet.text }}
+          </li>
+        </div>
+
+        <br />     
       <button ng-click="logout()">Logout</button>
   </div>

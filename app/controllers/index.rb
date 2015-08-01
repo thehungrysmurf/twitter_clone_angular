@@ -43,3 +43,22 @@ get '/logout' do
   session['user'] = nil
   redirect to '/'
 end
+
+get '/tweets' do
+  if session['user'].nil?
+    status = 404
+  else
+    @tweets = Tweet.where(:username => session['user']).all
+    content_type :json
+    @tweets.to_json
+  end
+end
+
+post '/tweet' do
+  if session['user'].nil?
+    status = 404
+  else
+    tweet = JSON.parse(request.body.read)
+    Tweet.create(username: session['user'], text: tweet['text']);
+  end
+end
