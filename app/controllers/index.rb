@@ -15,17 +15,6 @@ post '/users' do
   User.create(first_name: user['first_name'], last_name: user['last_name'], username: user['username'], password: user['password'])
 end
 
-get '/profile' do
-  if session['user'].nil?
-    status = 404
-  else
-    status = 200
-    current_user = User.find_by_username(session['user'])
-  content_type :json
-  { :status => status, :current_user => current_user }.to_json
-  end
-end
-
 post '/login' do
     credentials = JSON.parse(request.body.read)
     is_logged_in = User.login(credentials['username'], credentials['password'])
@@ -37,4 +26,20 @@ post '/login' do
       session['user'] = nil
     end
     { :status => status }.to_json
+end
+
+get '/profile' do
+  if session['user'].nil?
+    status = 404
+  else
+    status = 200
+    current_user = User.find_by_username(session['user'])
+  content_type :json
+  { :status => status, :current_user => current_user }.to_json
+  end
+end
+
+get '/logout' do
+  session['user'] = nil
+  redirect to '/'
 end
