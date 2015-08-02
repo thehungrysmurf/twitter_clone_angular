@@ -46,9 +46,9 @@ get '/logout' do
 end
 
 get '/tweets' do
-    @tweets = Tweet.where(:username => session['user']).all
+    tweets = Tweet.where(:username => session['user']).all
     content_type :json
-    @tweets.to_json
+    tweets.to_json
 end
 
 post '/tweet' do
@@ -61,22 +61,48 @@ post '/tweet' do
 end
 
 get '/profile/:id' do
-  if defined? params['id']
-    user = User.find_by_id(params['id'])
-    content_type :json
-    user.to_json
-  else
-    redirect to '/profile'  
-  end
+    unless params['id'].nil?
+      user = User.find_by_id(params['id'])
+      content_type :json
+      user.to_json 
+    end 
 end
 
 get '/tweets/:id' do
-  if defined? params['id']
-    user = User.find_by_id(params['id'])
-    @tweets = Tweet.where(:username => user.username)
-    content_type :json
-    @tweets.to_json
-  else
-    redirect to '/tweets' 
-  end
+    unless params['id'].nil?
+      user = User.find_by_id(params['id'])
+      tweets = Tweet.where(:username => user.username)
+      content_type :json
+      tweets.to_json
+    end
 end
+
+get '/followers/:id' do
+  user = User.find_by_id(params['id'])
+  followers = User.where(:id => Relationship.where(:followed_id => user.id)).all
+  content_type :json
+  followers.to_json
+end
+
+post '/follow/:id' do
+  followed = User.find_by_id(params['id'])
+  follower = User.find_by_username(session['user'])
+  Relationship.create(follower_id: follower.id, followed_id: followed.id)
+end
+
+get '/follow/:id' do
+  followed = User.find_by_id(params['id'])
+  follower = User.find_by_username(session['user'])
+  is_follower = Relationship.where(:follower_id => follower.id, :followed_id => followed.id);
+  if defined? is_follower
+    following = true
+  else
+    following = false
+  end
+  return following.to_s
+end
+
+
+
+
+

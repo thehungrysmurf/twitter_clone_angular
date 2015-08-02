@@ -5,4 +5,13 @@
 <ul ng-repeat="tweet in load_tweets">
   <li>{{ tweet.text }}</li>
 </ul>
+
+<div>
+<button ng-click="getFollowers()">See user's followers</button>
+<ul ng-repeat="follower in followers">
+<li>{{ follower.username }}</li>
+</ul>
+</div>
+<br />
+<button ng-click="follow()">Follow user</button>
 </div>
