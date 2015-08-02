@@ -6,8 +6,9 @@ end
 
 get '/users' do
   users = User.all
+  myself = session['user']
   content_type :json
-  users.to_json
+  { :users => users, :myself => myself }.to_json
 end
 
 post '/users' do
@@ -45,13 +46,9 @@ get '/logout' do
 end
 
 get '/tweets' do
-  if session['user'].nil?
-    status = 404
-  else
     @tweets = Tweet.where(:username => session['user']).all
     content_type :json
     @tweets.to_json
-  end
 end
 
 post '/tweet' do
@@ -60,5 +57,26 @@ post '/tweet' do
   else
     tweet = JSON.parse(request.body.read)
     Tweet.create(username: session['user'], text: tweet['text']);
+  end
+end
+
+get '/profile/:id' do
+  if defined? params['id']
+    user = User.find_by_id(params['id'])
+    content_type :json
+    user.to_json
+  else
+    redirect to '/profile'  
+  end
+end
+
+get '/tweets/:id' do
+  if defined? params['id']
+    user = User.find_by_id(params['id'])
+    @tweets = Tweet.where(:username => user.username)
+    content_type :json
+    @tweets.to_json
+  else
+    redirect to '/tweets' 
   end
 end

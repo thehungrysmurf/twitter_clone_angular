@@ -11,6 +11,6 @@ shiftSampleApp
         } else {
           $location.path('/profile');
         }
-        });
-  }
+      });
+    }
 });

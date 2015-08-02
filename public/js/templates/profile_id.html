@@ -1,0 +1,8 @@
+<div ng-controller="ProfileCtrl">
+<h2>{{ load_profile.first_name }}'s Profile</h2>
+<p>{{ load_profile.username }}</p>
+<h2>Tweets</h2>
+<ul ng-repeat="tweet in load_tweets">
+  <li>{{ tweet.text }}</li>
+</ul>
+</div>

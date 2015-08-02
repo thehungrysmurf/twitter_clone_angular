@@ -16,6 +16,10 @@ shiftSampleApp.config(['$routeProvider',
         templateUrl: '/js/templates/profile.html',
         controller: 'TweetCtrl',
       }).
+      when('/profile/:id', {
+        templateUrl: '/js/templates/profile_id.html',
+        controller: 'ProfileCtrl'
+      }).
       otherwise({
        redirectTo: '/users'
       });

@@ -1,5 +1,6 @@
 shiftSampleApp
   .controller('TweetCtrl', function ($scope, $http, $location) {
+    $scope.numTweets = 50;
     $scope.getTweets = function() {
       $http.get('/tweets').success(function(data) {
         $scope.tweets = data;       

@@ -3,7 +3,8 @@ shiftSampleApp
     // Incorporate factories and services if possible
     $scope.getUsers = function() {
       $http.get('/users').success(function(data) {
-        $scope.users = data;
+        $scope.users = data.users;
+        $scope.myself = data.myself;
       });
     };
 
