@@ -18,6 +18,9 @@ shiftSampleApp
 
       $http.post('/users', params).success(function(response) {
         alert("User created successfully!");
+      })
+      .error(function(response) {
+        alert("Username already exists!");
       });
     };
   });

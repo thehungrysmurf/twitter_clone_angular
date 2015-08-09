@@ -7,5 +7,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_hash
       t.timestamps
     end
+  add_index :users, :username, unique: true
   end
 end
