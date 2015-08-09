@@ -4,13 +4,9 @@ shiftSampleApp
 
     get: function() {
       return $http.get('/home').then(function(response) {
-        if(response.status === 404) {
-          alert("Not logged in! Please log in to see this content.");
-        }
-        else
-          return response;
+      return response;
       });
     }
-    }
-    return current_user;
+  }
+  return current_user;
 });

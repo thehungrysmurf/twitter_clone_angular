@@ -1,14 +1,14 @@
 <h1> Shift starter app </h1>
   
   <div ng-controller="HomeCtrl">
-    <p>Hello and welcome to being logged in, {{ current_user.first_name }}!</p>
+    <p>Home</p>
     <p>{{ current_user.username }}</p>
 
     <div ng-controller="TweetCtrl">
 
         <h1>Tweets from all users</h1>
         <ul>
-          <li ng-repeat="tweet in allTweets | limitTo: 50 | orderBy: 'created_at':true">
+          <li ng-repeat="tweet in alltweets | limitTo: 50 | orderBy: 'created_at':true">
             {{ tweet.text }}
           </li>
         </ul>

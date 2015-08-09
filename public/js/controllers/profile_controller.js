@@ -9,7 +9,7 @@ shiftSampleApp
       });
 
       Profile.getTweets(user_id).then(function(response) {
-      $scope.load_tweets = response.data;
+      $scope.load_tweets = response.data.tweets;
       });
     }
 

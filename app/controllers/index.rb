@@ -37,13 +37,15 @@ get '/home' do
   else
     status = 200
     current_user = User.find_by_username(session['user'])
+  end
   content_type :json
   { :status => status, :current_user => current_user }.to_json
-  end
 end
 
 # Log the user out
-get '/logout' do
+post '/logout' do
+  puts "zah"
+  session.clear
   session['user'] = nil
   redirect to '/'
 end
@@ -53,9 +55,12 @@ post '/tweet' do
   if session['user'].nil?
     status = 404
   else
+    status = 200
     tweet = JSON.parse(request.body.read)
     Tweet.create(username: session['user'], text: tweet['text']);
   end
+  content_type :json
+  { :status => status }.to_json
 end
 
 # Get the profile page of :id
@@ -67,16 +72,30 @@ end
 
 # Get tweets of :id
 get '/tweets/:id' do
-  user = User.find_by_id(params['id'])
-  tweets = Tweet.where(:username => user.username)
+  if session['user'].nil?
+    status = 404
+  else
+    status = 200
+    user = User.find_by_id(params['id'])
+    tweets = Tweet.where(:username => user.username)
+    content_type :json
+    tweets.to_json
+  end
   content_type :json
-  tweets.to_json
+  { :status => status, :tweets => tweets }.to_json
 end
 
 get '/alltweets' do
-  alltweets = Tweet.all
+  if session['user'].nil?
+    status = 404
+  else
+    status = 200
+    alltweets = Tweet.all
+    content_type :json
+    alltweets.to_json
+  end
   content_type :json
-  alltweets.to_json
+  { :status => status, :alltweets => alltweets }.to_json
 end
 
 # Get a list of users who are following :id

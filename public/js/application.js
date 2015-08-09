@@ -12,6 +12,10 @@ shiftSampleApp.config(['$routeProvider',
         templateUrl: '/js/templates/home.html',
         controller: 'HomeCtrl',
       }).
+      when('/logout', {
+        templateUrl: '/js/templates/users.html',
+        controller: 'HomeCtrl',
+      }).
       when('/tweets/:id', {
         controller: 'TweetCtrl',
       }).

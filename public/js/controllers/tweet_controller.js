@@ -4,12 +4,16 @@ shiftSampleApp
     $scope.numTweets = 50;
 
     $scope.getTweets = function(user_id) {
-      $http.get('/tweets/' + user_id).success(function(data) {
-        $scope.tweets = data;       
+      $http.get('/tweets/' + user_id).success(function(response) {
+        if(response.status == 200) {
+          $scope.tweets = response.tweets;
+        }     
       });
     }
     Tweet.get().then(function(response) {
-      $scope.allTweets = response.data;
+      if(response.data.status == 200) {
+        $scope.alltweets = response.data.alltweets;
+      }
     })
 
     $scope.createTweet = function(tweet) {
@@ -17,6 +21,12 @@ shiftSampleApp
         text: tweet.text
       }
       $http.post('/tweet', params).success(function(response) {
+        if(response.status != 200) {
+          alert("Error - you are not logged in! You must be logged in to post a tweet.");
+        }
+        else {
+          alert("Post created successfully!");
+        }
       });
     }
 
