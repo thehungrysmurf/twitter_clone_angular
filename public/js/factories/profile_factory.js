@@ -1,5 +1,5 @@
 shiftSampleApp
-  .factory('Profile', function ($http, $q) {
+  .factory('Profile', function ($http) {
     var profile = {
 
     get: function (userId) {

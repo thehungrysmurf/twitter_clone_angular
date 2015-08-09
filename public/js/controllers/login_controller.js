@@ -6,10 +6,14 @@ shiftSampleApp
           password: credentials.password
         };
       $http.post('/login', params).success(function(data) {
-        if(data.status === 400) { 
+        if(data.status === 0) {
+          alert('This username already exists! Please log in');
+        }
+        else if(data.status === 400) { 
           alert('Credentials invalid!'); 
-        } else {
-          $location.path('/profile');
+        } 
+        else {
+          $location.path('/home');
         }
       });
     }

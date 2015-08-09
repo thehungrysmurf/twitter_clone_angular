@@ -8,17 +8,16 @@ shiftSampleApp.config(['$routeProvider',
         controller: 'UsersCtrl',
       }).
       // add new angular routes below
-      when('/profile', {
-        templateUrl: '/js/templates/profile.html',
-        controller: 'ProfileCtrl',
+      when('/home', {
+        templateUrl: '/js/templates/home.html',
+        controller: 'HomeCtrl',
       }).
-      when('/tweets', {
-        templateUrl: '/js/templates/profile.html',
+      when('/tweets/:id', {
         controller: 'TweetCtrl',
       }).
       when('/profile/:id', {
-        templateUrl: '/js/templates/profile_id.html',
-        controller: 'ProfileCtrl'
+        templateUrl: '/js/templates/profile.html',
+        controller: 'ProfileCtrl',
       }).
       otherwise({
        redirectTo: '/users'
