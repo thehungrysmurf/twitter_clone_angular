@@ -1,5 +1,5 @@
 shiftSampleApp
-  .controller('TweetCtrl', function ($scope, $http, $location) {
+  .controller('TweetCtrl', function ($scope, $http, $location, Tweet) {
     
     $scope.numTweets = 50;
 
@@ -8,6 +8,9 @@ shiftSampleApp
         $scope.tweets = data;       
       });
     }
+    Tweet.get().then(function(response) {
+      $scope.allTweets = response.data;
+    })
 
     $scope.createTweet = function(tweet) {
       var params = {

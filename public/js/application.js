@@ -15,6 +15,9 @@ shiftSampleApp.config(['$routeProvider',
       when('/tweets/:id', {
         controller: 'TweetCtrl',
       }).
+      when('/alltweets', {
+        controller: 'TweetCtrl',
+      }).
       when('/profile/:id', {
         templateUrl: '/js/templates/profile.html',
         controller: 'ProfileCtrl',

@@ -2,54 +2,61 @@
   
   <div ng-controller="HomeCtrl">
     <p>Hello and welcome to being logged in, {{ current_user.first_name }}!</p>
+    <p>{{ current_user.username }}</p>
 
-      <div ng-controller="TweetCtrl">
+    <div ng-controller="TweetCtrl">
+
+        <h1>Tweets from all users</h1>
+        <ul>
+          <li ng-repeat="tweet in allTweets | limitTo: 50 | orderBy: 'created_at':true">
+            {{ tweet.text }}
+          </li>
+        </ul>
+
+      <div>
         <h1>Write a tweet</h1>
         <form novalidate>
           Text: <input type="text" maxlength="140" ng-model="tweet.text"/><br />
         <input type="submit" ng-click="createTweet(tweet)" value="Post" />
         </form>
-        <br />
-        <h1>Your tweets</h1>
-        <p>{{ current_user.username }}</p>
+      </div>
+
+        <h1>Your stuff</h1>
         <button ng-click="getTweets(current_user.id)">See your tweets</button>
         <ul>
           <li ng-repeat="tweet in tweets | limitTo:numTweets" ng-model="numTweets">
             {{ tweet.text }}
           </li>
         </ul>
-      </div>
 
-      <br />
+    </div>
 
-      <div ng-controller="ProfileCtrl">
-        <button ng-click="getFollowers(current_user.id)">See your followers</button>
-        <ul>
-          <li ng-repeat="follower in followers">
-            {{ follower }}
-          </li>
-        </ul>
-      </div>
+    <div ng-controller="ProfileCtrl">
+      <button ng-click="getFollowers(current_user.id)">See your followers</button>
+      <ul>
+        <li ng-repeat="follower in followers">
+          {{ follower }}
+        </li>
+      </ul>
+    </div>
 
-      <br />
-      <div>
-        <button ng-click="getFollowing()">See users you currently follow</button>
-        <ul>
-        <li ng-repeat="followed in following">
-            {{ followed }}
-          </li>
-        </ul>
-      </div>
+    <div>
+      <button ng-click="getFollowing()">See users you currently follow</button>
+      <ul>
+      <li ng-repeat="followed in following">
+          {{ followed }}
+        </li>
+      </ul>
+    </div>
 
-      <div ng-controller="UsersCtrl">
-        <button ng-click="getUsers()">See all users</button>
-        <ul>
-          <li ng-repeat="user in users" ng-if="user.username != myself">
-            <a href="/#/profile/{{ user.id }}" ng-click=loadProfile(user)>{{ user.username }}</a>
-          </li>
-        </ul>
-      </div>
-
-      <br />     
-      <button ng-click="logout()">Logout</button>
+    <div ng-controller="UsersCtrl">
+      <button ng-click="getUsers()">See all users</button>
+      <ul>
+        <li ng-repeat="user in users" ng-if="user.username != myself">
+          <a href="/#/profile/{{ user.id }}" ng-click=loadProfile(user)>{{ user.username }}</a>
+        </li>
+      </ul>
+    </div>
+  
+    <button ng-click="logout()">Logout</button>
   </div>

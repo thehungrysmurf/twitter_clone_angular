@@ -73,6 +73,12 @@ get '/tweets/:id' do
   tweets.to_json
 end
 
+get '/alltweets' do
+  alltweets = Tweet.all
+  content_type :json
+  alltweets.to_json
+end
+
 # Get a list of users who are following :id
 get '/followers/:id' do
   user = User.find_by_id(params['id'])
